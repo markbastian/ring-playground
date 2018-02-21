@@ -4,8 +4,8 @@
     [immutant.web :as immutant]
     ;https://github.com/weavejester/hiccup
     [hiccup.page :refer [html5]]
-    ;http://ring-clojure.github.io/ring/ring.util.response.html
-    [ring.util.response :as rur]
+    ;https://github.com/metosin/ring-http-response
+    [ring.util.http-response :refer [ok content-type]]
     [mount.core :refer [defstate only] :as mount])
   (:import (java.util Date)))
 
@@ -21,9 +21,7 @@
       {:status  200
        :headers {"Content-Type" "text/html"}
        :body (str body "<p>MAP</p>")}
-      (-> (str body "<p>NO MAP</p>")
-          rur/response
-          (rur/content-type "text/html")))))
+      (-> (str body "<p>NO MAP</p>") ok (content-type "text/html")))))
 
 (defstate server
           :start (immutant/run #'handler {:port 3000})

@@ -2,7 +2,7 @@
   "https://gist.github.com/weavejester/598020"
   (:require [hiccup.page :refer [html5]]
             [ring.middleware.params :refer [wrap-params]]
-            [ring.util.response :refer [response content-type]]
+            [ring.util.http-response :refer [ok content-type]]
             [mount.core :refer [defstate only] :as mount]
             [immutant.web :as immutant]))
 
@@ -15,8 +15,7 @@
        [:input {:type "submit"}]])))
 
 (defn handler [{{name "name"} :params}]
-  (-> (response (page name))
-      (content-type "text/html")))
+  (-> name page ok (content-type "text/html")))
 
 (def app
   (-> handler

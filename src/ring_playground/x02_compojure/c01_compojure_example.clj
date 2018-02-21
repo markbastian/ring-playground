@@ -4,11 +4,13 @@
     [compojure.route :as route]
     [ring.adapter.jetty :refer [run-jetty]]
     [immutant.web :as immutant]
+    [hiccup.page :refer [html5]]
+    [ring.util.http-response :refer [ok]]
     [mount.core :as mount :refer [defstate only]]
     [clj-time.core :as time]))
 
 (defroutes app
-           (GET "/" [] "<h1>Hello World!</h1>")
+           (GET "/" [] (ok (html5 [:h1 "Hello World"])))
            (GET "/time" [] (str "The time is: " (time/now)))
            (route/not-found "<h1>Page not found</h1>"))
 
