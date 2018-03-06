@@ -1,7 +1,8 @@
 (ns ring-playground.x01-ring.r07-static-resources
   (:require [immutant.web :as immutant]
             [mount.core :as mount :refer [only defstate]]
-            [ring.util.response :refer [response]]
+            [hiccup.page :refer [html5]]
+            [ring.util.http-response :refer [ok content-type]]
             [ring.middleware.file]
             [ring.middleware.resource :refer :all]
             [ring.middleware.content-type :refer :all]
@@ -9,12 +10,13 @@
 
 ;https://github.com/ring-clojure/ring/wiki/Static-Resources
 (defn handler [request]
-  {:status 200
-   :body "<img src=\"public/img/clj.png\">"})
+  (-> (ok (html5 [:h1 "Hello Clojure!"]
+                 [:img {:src "img/clj.png" :width 200 :height 200}]))
+      (content-type "text/html")))
 
 (def app
   (-> handler
-      (wrap-resource "resources")
+      (wrap-resource "public")
       wrap-content-type
       wrap-not-modified))
 
