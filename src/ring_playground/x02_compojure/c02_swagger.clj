@@ -1,7 +1,5 @@
 (ns ring-playground.x02-compojure.c02-swagger
-  (:require [mount.core :as mount :refer [only defstate]]
-            [immutant.web :as immutant]
-            [compojure.api.sweet :refer [GET POST context api]]
+  (:require [compojure.api.sweet :refer [GET POST context api]]
             [ring.util.http-response :refer [ok]]
             [schema.core :as s]))
 
@@ -38,13 +36,3 @@
                    :body [pizza Pizza]
                    :summary "echoes a Pizza"
                    (ok pizza)))))
-
-(defstate server
-          :start (immutant/run #'app {:port 3000})
-          :stop (immutant/stop app))
-
-(defn start []
-  (mount/start (only #{#'server})))
-
-(defn stop []
-  (mount/stop))

@@ -12,5 +12,7 @@
                  [mount "0.1.12"]
                  [org.immutant/web "2.1.10"]
                  [hiccup "1.0.5"]
-                 [bidi "2.1.3"]]
+                 [bidi "2.1.3"]
+                 [prone "1.5.0"]
+                 [com.stuartsierra/component "0.3.2"]]
   :plugins [[lein-ring "0.12.3"]])

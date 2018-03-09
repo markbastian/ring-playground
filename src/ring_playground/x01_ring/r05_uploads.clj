@@ -1,9 +1,7 @@
 (ns ring-playground.x01-ring.r05-uploads
   (:require
-    [immutant.web :as immutant]
     [ring.util.response :as rur]
     [ring.middleware.params :refer [wrap-params]]
-    [mount.core :refer [defstate only] :as mount]
     [ring.middleware.multipart-params :refer [wrap-multipart-params]]
     [clojure.java.io :as io]))
 
@@ -26,14 +24,3 @@
   (-> file-handler
       wrap-params
       wrap-multipart-params))
-
-(defstate server
-          :start (immutant/run #'app {:port 3000})
-          :stop (immutant/stop app))
-
-(defn start []
-  (mount/start (only #{#'server})))
-
-(defn stop []
-  (mount/stop))
-

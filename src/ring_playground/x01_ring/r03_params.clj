@@ -2,9 +2,7 @@
   "https://gist.github.com/weavejester/598020"
   (:require [hiccup.page :refer [html5]]
             [ring.middleware.params :refer [wrap-params]]
-            [ring.util.http-response :refer [ok content-type]]
-            [mount.core :refer [defstate only] :as mount]
-            [immutant.web :as immutant]))
+            [ring.util.http-response :refer [ok content-type]]))
 
 (defn page [name]
   (html5
@@ -21,13 +19,3 @@
   (-> handler
       ;Our first middleware - wrap-params! Note: View the source.
       wrap-params))
-
-(defstate server
-          :start (immutant/run #'app {:port 3000})
-          :stop (immutant/stop server))
-
-(defn start []
-  (mount/start (only #{#'server})))
-
-(defn stop []
-  (mount/stop))
