@@ -3,7 +3,8 @@
     [ring.util.response :as rur]
     [ring.middleware.params :refer [wrap-params]]
     [ring.middleware.multipart-params :refer [wrap-multipart-params]]
-    [clojure.java.io :as io]))
+    [clojure.java.io :as io]
+    [clj-http.client :as client]))
 
 ;https://github.com/ring-clojure/ring/wiki/File-Uploads
 ;https://ring-clojure.github.io/ring/ring.middleware.multipart-params.html
@@ -24,3 +25,9 @@
   (-> file-handler
       wrap-params
       wrap-multipart-params))
+
+(defn post-file []
+  (client/post
+    "http://localhost:3000"
+    {:multipart [{:name "file"
+                  :content (clojure.java.io/file "project.clj")}]}))

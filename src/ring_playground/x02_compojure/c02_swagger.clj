@@ -4,12 +4,13 @@
             [schema.core :as s]))
 
 ;https://github.com/metosin/compojure-api
+; Built on https://github.com/metosin/ring-swagger - not demo'd here
 (s/defschema Pizza
-  {:name                         s/Str
+  {:name s/Str
    (s/optional-key :description) s/Str
-   :size                         (s/enum :L :M :S)
-   :origin                       {:country (s/enum :FI :PO)
-                                  :city                          s/Str}})
+   :size (s/enum :L :M :S)
+   :origin {:country (s/enum :FI :PO)
+            :city s/Str}})
 
 (def app
   (api
@@ -23,16 +24,16 @@
              :produces ["application/json"]}}}
 
     (context "/api" []
-             :tags ["api"]
+      :tags ["api"]
 
-             (GET "/plus" []
-                  :return {:result Long}
-                  :query-params [x :- Long, y :- Long]
-                  :summary "adds two numbers together"
-                  (ok {:result (+ x y)}))
+      (GET "/plus" []
+        :return {:result Long}
+        :query-params [x :- Long, y :- Long]
+        :summary "adds two numbers together"
+        (ok {:result (+ x y)}))
 
-             (POST "/echo" []
-                   :return Pizza
-                   :body [pizza Pizza]
-                   :summary "echoes a Pizza"
-                   (ok pizza)))))
+      (POST "/echo" []
+        :return Pizza
+        :body [pizza Pizza]
+        :summary "echoes a Pizza"
+        (ok pizza)))))
