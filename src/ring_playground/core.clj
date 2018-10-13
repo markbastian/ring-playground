@@ -15,6 +15,8 @@
     [ring-playground.x02-compojure.c02-swagger :as x02r02]
     ;bidi
     [ring-playground.x03-bidi.core :as x02r03]
+    ;sente
+    [ring-playground.x04-sente.sente :as sente]
     ))
 
 (defrecord Server [server port])
