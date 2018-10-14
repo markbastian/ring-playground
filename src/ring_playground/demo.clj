@@ -2,16 +2,22 @@
   (:require [integrant.core :as ig]
             [immutant.web :as immutant]))
 
-(defmethod ig/init-key :immutant/web-server [_ {:keys [host port app] :as config
+(defmethod ig/init-key :immutant/web-server [_ {:keys [host port handler] :as config
                                                 :or {host "0.0.0.0" port 3000}}]
   (prn "fefas")
-  (immutant/run (fn [] (app config)) {:port port :host host}))
+  (immutant/run (fn [request] (handler config request)) {:port port :host host}))
 
 
 (defmethod ig/halt-key! :immutant/web-server [_ server]
   (immutant/stop server))
 
-(def config {:immutant/web-server {:handler (fn [_] "Hello")}})
+(defn handler [system request]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   ;:body "Hello world!"
+   :body "<h2>Hello world!</h2>"})
+
+(def config {:immutant/web-server {:handler #'handler }})
 
 (defonce ^:dynamic *system* nil)
 
