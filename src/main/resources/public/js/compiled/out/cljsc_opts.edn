@@ -1,0 +1,1 @@
+{:main ring-playground.demo.core, :asset-path "js/compiled/out", :output-to "src/main/resources/public/js/compiled/app.js", :output-dir "src/main/resources/public/js/compiled/out", :source-map-timestamp true, :optimizations :none, :preloads [figwheel.connect], :external-config #:figwheel{:config {:build-id "dev", :websocket-url "ws://localhost:3449/figwheel-ws"}}}
