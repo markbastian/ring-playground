@@ -13,3 +13,4 @@ pom.xml.asc
 /resources/public/js
 scratch.clj
 *.log
+.rebel_readline_history
