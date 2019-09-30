@@ -37,11 +37,11 @@
    ["/foo" {:get (fn [request]
                    {:status 200
                     :body "hi"})}]
-   ["/plus" {:get (fn [{{:strs [x y]} :query-params :as req}]
-                    (ok (+ (Long/parseLong x) (Long/parseLong y))))
+   ["/plus" {:get  (fn [{{:strs [x y]} :query-params :as req}]
+                     (ok (str (+ (Long/parseLong x) (Long/parseLong y)))))
              :post (fn [{{:keys [x y]} :body-params}]
                      {:status 200
-                      :body {:total (+ x y)}})}]])
+                      :body   {:total (+ x y)}})}]])
 
 (def app
   (ring/ring-handler
