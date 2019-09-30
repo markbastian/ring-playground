@@ -1,5 +1,7 @@
 (ns ring-playground.demo.web.home
-  (:require  [hiccup.page :refer [html5 include-css include-js]]))
+  (:require  [hiccup.page :refer [html5 include-css include-js]]
+             [ring.util.anti-forgery :refer [anti-forgery-field]]
+             [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
 
 ;(require '[hiccup-bridge.core :as hicv])
 ;(hicv/html->hiccup "<foo><bar>buzz</bar></foo>")
@@ -31,6 +33,7 @@
 
 (defn home-page []
   (html5
+    ;(anti-forgery-field)
     [:head
      [:title "My Page"]
      [:link {:rel "shortcut icon" :href "#"}]
@@ -38,6 +41,7 @@
     [:body
      [:div#app
       [:h3 "Waiting for app to load..."]]
+     [:script {:type "javascript"} (str "csrf = " *anti-forgery-token*)]
      (include-js
        "/assets/jquery/jquery.js"
        "/assets/bootstrap/js/bootstrap.min.js"

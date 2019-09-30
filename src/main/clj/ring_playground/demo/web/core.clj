@@ -1,5 +1,5 @@
 (ns ring-playground.demo.web.core
-  (:require  [compojure.core :refer [routes GET]]
+  (:require  [compojure.core :refer [routes GET POST]]
              [ring.util.http-response :refer [ok content-type]]
              [ring-playground.demo.web.home :as web-home]
              [ring.middleware.webjars :refer [wrap-webjars]]
@@ -10,6 +10,9 @@
   (->
     (routes
       (GET "/" [] (web-home/home-page))
+      (POST "/login" []
+            (prn "Someone tried logging in!!!!")
+            (web-home/login-page))
       (GET "/login" [] (web-home/login-page))
       (GET "/foo" [] "Hello Foo")
       (GET "/bar" [] "Hello Bar"))
